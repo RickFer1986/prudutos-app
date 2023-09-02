@@ -25,7 +25,9 @@ class SalvarUpdateProduto extends FormRequest
     {
         return [
             'nome' => 'required|min:3|max:20',
-            'detalhes' => 'required|max:120'
+            'detalhes' => 'required|max:120',
+            'quantidade' => 'required',
+            'fornecedor' => 'required'
         ];
     }
 }

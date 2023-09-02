@@ -32,14 +32,18 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Detalhes</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Fornecedor</th>
             </tr>
         </thead>
         @foreach ($prods as $prod)
             <tbody>
-                <tr>
+                <tr class="{{ $prod->quantidade <= 5 ? 'table-danger' : '' }}">
                     <th scope="row">{{ $prod->id }}</th>
                     <td>{{ $prod->nome }}</td>
                     <td>{{ $prod->detalhes }}</td>
+                    <td>{{ $prod->quantidade }}</td>
+                    <td>{{ $prod->fornecedor }}</td>
                     <td><a href="{{ route('prod.editar', $prod->id) }}"><i class="bi bi-pen-fill"></i></a></td>
                     <td><a href="{{ route('prod.exibir', $prod->id) }}"><i class="bi bi-eye-fill"></i></a></td>
                     <td><a href="{{ route('prod.deletar', $prod->id) }}"><i class="bi bi-trash3-fill"></i></a></td>

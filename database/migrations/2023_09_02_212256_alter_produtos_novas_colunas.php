@@ -13,7 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('produtos', function (Blueprint $table) {
+            $table->integer('quantidade');
+            $table->string('fornecedor');
+        });
     }
 
     /**

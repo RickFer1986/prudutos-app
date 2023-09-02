@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 class ProdutoController extends Controller
 {
     public function index(){
-        $prods = Produto::latest()->paginate();
+        $prods = Produto::latest()->paginate(5);
         return view('site.index', compact('prods'));
     }
 
@@ -87,7 +87,7 @@ class ProdutoController extends Controller
         // Buscando a palavra
         $prods = Produto::where('nome', 'LIKE', "%{$request->buscar}%")
             ->orWhere('detalhes', 'LIKE', "%{$request->buscar}%")
-            ->paginate();
+            ->paginate(5);
 
         return view('site.index', compact('prods', 'filters'));
     }
