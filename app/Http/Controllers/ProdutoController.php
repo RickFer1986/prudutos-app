@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SalvarUpdateProduto;
 use Illuminate\Http\Request;
 use App\Models\produto;
+use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 
 class ProdutoController extends Controller
 {
@@ -20,21 +21,63 @@ class ProdutoController extends Controller
     public function salvar(SalvarUpdateProduto $request){
         $prod = Produto::create($request->all());
 
-        return redirect()->route('prod.index');
+        return redirect()
+            ->route('prod.index')
+            ->with('message', 'Produto Adicionado com sucesso!');
     }
 
-    public function editar(){
+    public function editar($id){
+        // Condição: Se não existir o ID ele volta - [ back() ] - para atela inicial 
+        if(!$prod = Produto::find($id))
+        return redirect()->back();
+
+        // Se existir o ID
+        return view('site.produtos.editar', compact('prod'));
+    }
+
+    public function salvarEdite(SalvarUpdateProduto $request, $id){
+        if(!$prod = Produto::find($id))
+        return redirect()->back();
+        // Se existir o ID
+
+        $prod->update($request->all());
         
-        return 'Editar';
+        return redirect()
+            ->route('prod.index')
+            ->with('message', 'Produto Editado com sucesso!');
     }
 
-    public function exibir(){
-        $prods = Produto::all();
+    public function exibir($id){
+        // Primeiro modo
+        //$prod = Produto::where('id', $id)->first();
 
-        return view('site.produtos.exibir', compact('prods'));
+        // Segundo modo (mais simples)
+        $prod = Produto::find($id);
+        
+        // Realizando uma condição para verificação se o ID existe
+        if(!$prod){
+            return redirect()->route('prod.index');
+        }
+
+        return view('site.produtos.exibir', compact('prod'));
+
+
     }
 
-    public function deletar(){
-        return 'Deletar';
+    public function deletar($id){
+        // Segundo modo (mais simples)
+        $prod = Produto::find($id);
+        
+        // Realizando uma condição para verificação se o ID existe
+        if(!$prod){
+            return redirect()->route('prod.index');
+        }
+
+        // Deletando
+        $prod->delete();
+
+        return redirect()
+            ->route('prod.index')
+            ->with('message', 'Produto deletado com sucesso');
     }
 }

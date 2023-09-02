@@ -19,11 +19,12 @@ Route::get('/produtos/add', [\App\Http\Controllers\ProdutoController::class, 'ad
 
 Route::post('/produtos/add', [\App\Http\Controllers\ProdutoController::class, 'salvar'])->name('prod.salvar');
 
-Route::get('/produtos/editar', [\App\Http\Controllers\ProdutoController::class, 'editar'])->name('prod.editar');
+Route::get('/produtos/editar/{id}', [\App\Http\Controllers\ProdutoController::class, 'editar'])->name('prod.editar');
+Route::put('/produtos/editar/{id}', [\App\Http\Controllers\ProdutoController::class, 'salvarEdite'])->name('prod.salvarEdite');
 
-Route::get('/produtos/exibir', [\App\Http\Controllers\ProdutoController::class, 'exibir'])->name('prod.exibir');
+Route::get('/produtos/exibir/{id}', [\App\Http\Controllers\ProdutoController::class, 'exibir'])->name('prod.exibir');
 
-// Route::deletar('/produtos/deletar', [\App\Http\Controllers\ProdutoController::class, 'deletar'])->name('prod.deletar');
+Route::get('/produtos/deletar/{id}', [\App\Http\Controllers\ProdutoController::class, 'deletar'])->name('prod.deletar');
 
 
 Route::get('/', function () {

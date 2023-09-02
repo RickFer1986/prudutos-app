@@ -11,6 +11,6 @@
         <label for="">Detalhes</label>
         <input type="text" name="detalhes" placeholder="Detalhes do produto" value="{{old('detalhes')}}">
         <br><br>
-        <button class="btn btn-primary">Adicionar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
     </form>
 @endsection
