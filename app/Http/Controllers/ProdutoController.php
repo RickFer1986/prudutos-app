@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 class ProdutoController extends Controller
 {
     public function index(){
-        $prods = Produto::all();
+        $prods = Produto::latest()->paginate();
         return view('site.index', compact('prods'));
     }
 
@@ -79,5 +79,16 @@ class ProdutoController extends Controller
         return redirect()
             ->route('prod.index')
             ->with('message', 'Produto deletado com sucesso');
+    }
+
+    public function buscar(Request $request){
+        // Preservando minhas buscas nas outras páginas exceto o Token: [ except('_token') ]
+        $filters = $request->except('_token');
+        // Buscando a palavra
+        $prods = Produto::where('nome', 'LIKE', "%{$request->buscar}%")
+            ->orWhere('detalhes', 'LIKE', "%{$request->buscar}%")
+            ->paginate();
+
+        return view('site.index', compact('prods', 'filters'));
     }
 }

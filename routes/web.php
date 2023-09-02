@@ -26,6 +26,8 @@ Route::get('/produtos/exibir/{id}', [\App\Http\Controllers\ProdutoController::cl
 
 Route::get('/produtos/deletar/{id}', [\App\Http\Controllers\ProdutoController::class, 'deletar'])->name('prod.deletar');
 
+// ANY aceita todos os métodos (get, post, put, etc...)
+Route::any('/produtos/buscar', [\App\Http\Controllers\ProdutoController::class, 'buscar'])->name('prod.buscar');
 
 Route::get('/', function () {
     return view('welcome');
