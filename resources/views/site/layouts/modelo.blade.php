@@ -20,6 +20,7 @@
 
     <div class="container">
         @yield('conteudo')
+        {{-- @include('site.layouts._partials.form') --}}
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

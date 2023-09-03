@@ -19,7 +19,7 @@ class ProdutoController extends Controller
     }
 
     public function salvar(SalvarUpdateProduto $request){
-        $prod = Produto::create($request->all());
+        Produto::create($request->all());
 
         return redirect()
             ->route('prod.index')
@@ -87,6 +87,9 @@ class ProdutoController extends Controller
         // Buscando a palavra
         $prods = Produto::where('nome', 'LIKE', "%{$request->buscar}%")
             ->orWhere('detalhes', 'LIKE', "%{$request->buscar}%")
+            ->orWhere('quantidade', 'LIKE', "%{$request->buscar}%")
+            ->orWhere('fornecedor', 'LIKE', "%{$request->buscar}%")
+            ->orWhere('id', 'LIKE', "%{$request->buscar}%")
             ->paginate(5);
 
         return view('site.index', compact('prods', 'filters'));
